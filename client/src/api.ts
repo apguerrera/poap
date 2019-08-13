@@ -134,7 +134,8 @@ export async function requestProof(
   });
 }
 export async function mintEventToManyUsers(eventId: number, addresses: string[]): Promise<any> {
-  return secureFetchNoResponse(`${API_BASE}/actions/mintEventToManyUsers`, {
+  console.log("api base is ", API_BASE);
+  return notSecureFetchNoResponse(`${API_BASE}/actions/mintEventToManyUsers`, {
     method: 'POST',
     body: JSON.stringify({
       eventId,
@@ -184,7 +185,7 @@ export async function updateEvent(event: PoapEvent) {
 }
 
 export async function createEvent(event: PoapEvent) {
-  return secureFetchNoResponse(`${API_BASE}/events`, {
+  return notSecureFetchNoResponse(`${API_BASE}/events`, {
     method: 'POST',
     body: JSON.stringify(event),
     headers: {
