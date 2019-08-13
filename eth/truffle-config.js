@@ -1,5 +1,5 @@
 const HDWalletProvider = require('truffle-hdwallet-provider');
-// require('dotenv').config();
+require('dotenv').config();
 
 
 module.exports = {
@@ -12,15 +12,14 @@ module.exports = {
       network_id: '*',
     },
     ropsten: {
-      // address: 0x79A560De1CD436d1D69896DDd8DcCb226f9Fa2fD
+      // address: 0xf92aF5f84a78814b3DF212209B773267C821900d
       provider: function() {
-        // if (!process.env.POAP_ROPSTEN_PK) {
-          if (3 == 5) {
+        if (!process.env.POAP_ROPSTEN_PK) {
           console.error('POAP_ROPSTEN_PK env variable is needed');
           process.abort();
         }
         return new HDWalletProvider(
-          "9EE3E3088E2CE6D760093A4E1672A81DA41C01853AD1C4826A558EC0CCF455AD",
+          process.env.POAP_ROPSTEN_PK,
           'https://ropsten.infura.io/v3/cf7a7eed37254ec4b95670607e76a917'
         );
       },
