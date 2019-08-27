@@ -53,10 +53,13 @@ export async function mintToken(eventId: number, toAddr: Address) {
 }
 
 export async function mintEventToManyUsers(eventId: number, toAddr: Address[]) {
+  console.log("poap-helper.ts page mintEventToManyUsers method executed");
   const contract = getContract();
   // Get Gas Price
   const gas = await getGasPrice();
   // Set a new Value, which returns the transaction
+  console.log("gas is: ", gas);
+  console.log(utils.parseUnits(gas.price, 'gwei'))
   const tx = await contract.functions.mintEventToManyUsers(eventId, toAddr, {
     gasLimit: estimateMintingGas(toAddr.length),
     gasPrice: utils.parseUnits(gas.price, 'gwei')

@@ -1,4 +1,6 @@
 const HDWalletProvider = require('truffle-hdwallet-provider');
+require('dotenv').config();
+
 
 module.exports = {
   networks: {
@@ -10,7 +12,7 @@ module.exports = {
       network_id: '*',
     },
     ropsten: {
-      // address: 0x79A560De1CD436d1D69896DDd8DcCb226f9Fa2fD
+      // address: 0xf92aF5f84a78814b3DF212209B773267C821900d
       provider: function() {
         if (!process.env.POAP_ROPSTEN_PK) {
           console.error('POAP_ROPSTEN_PK env variable is needed');

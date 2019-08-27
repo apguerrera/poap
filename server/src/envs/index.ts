@@ -2,6 +2,9 @@ import { Provider, JsonRpcProvider } from 'ethers/providers';
 import { Wallet, getDefaultProvider } from 'ethers';
 import { Address } from '../types';
 
+require('dotenv').config();
+
+
 export interface EnvVariables {
   provider: Provider;
   poapAdmin: Wallet;
@@ -10,6 +13,9 @@ export interface EnvVariables {
 
 function getDevelopmentVariables(): EnvVariables {
   const provider: Provider = new JsonRpcProvider('http://localhost:9545');
+
+  console.log("getDevelopmentVariables executed");
+  console.log(process.env.ETH_NETWORK);
 
   return {
     provider,
@@ -36,15 +42,21 @@ function getVariables(): EnvVariables {
 
   const provider: Provider = getDefaultProvider(network);
 
+  const poapAddress = ensureEnvVariable('POAP_CONTRACT_ADDR');
+
+  console.log("getVariables executed: ", network, ownerPK, provider)
+
   return {
     provider,
-    poapAddress: ensureEnvVariable('POAP_CONTRACT_ADDR'),
+    poapAddress,
     poapAdmin: new Wallet(ownerPK, provider),
   };
 }
 
+console.log("node_env is ", process.env.NODE_ENV);
+
 const variables =
-  process.env.NODE_ENV === 'development' ? getDevelopmentVariables() : getVariables();
+  process.env.NODE_ENVIROMENT === 'development' ? getDevelopmentVariables() : getVariables();
 
 export default function getEnv(): EnvVariables {
   return variables;
